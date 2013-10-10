@@ -10,6 +10,7 @@ import java.io.PushbackInputStream;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -153,8 +154,9 @@ public class LanguageDiscoveryService {
 				compilerFiles[i] = new File(args.ctrees.get(i - numJars));
 		}
 
+		// FIXME we would need a (multivalued) referenceResolver argument too
 		return new Language(args.lang, extens, args.ssymb, new File(args.tbl), args.observer,
-				compilerFiles);
+				compilerFiles, new String[] {});
 	}
 
 	/**
@@ -173,8 +175,11 @@ public class LanguageDiscoveryService {
 		File parsetbl = new File(basepath, ESVReader.parseTableName(document));
 		String observer = ESVReader.observerFunction(document);
 
+		List<String> referenceResolvers = ESVReader.referenceResolverFunctions(document);
+
 		return new Language(name, extens, startsymb, parsetbl, observer,
-				codefiles.toArray(new File[codefiles.size()]));
+				codefiles.toArray(new File[codefiles.size()]),
+				referenceResolvers.toArray(new String[referenceResolvers.size()]));
 	}
 
 }

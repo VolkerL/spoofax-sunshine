@@ -21,9 +21,10 @@ public class Language extends ALanguage {
 	public final FileBasedParseTableProvider parseTableProvider;
 	public final String analysisFunction;
 	public final File[] compilerFiles;
+	public final String[] resolverFunctions;
 
 	public Language(String name, String[] extens, String startSymbol, File parseTable,
-			String analysisFunction, File[] compilerFiles) {
+			String analysisFunction, File[] compilerFiles, String[] resolverFunctions) {
 		super(name);
 
 		assert name != null && name.length() > 0;
@@ -32,12 +33,15 @@ public class Language extends ALanguage {
 		assert parseTable != null;
 		assert analysisFunction != null && analysisFunction.length() > 0;
 		assert compilerFiles != null && compilerFiles.length > 0;
+		// not all languages might need resolving?
+		assert resolverFunctions != null;
 
 		this.extens = extens;
 		this.startSymbol = startSymbol;
 		this.parseTableProvider = new FileBasedParseTableProvider(parseTable);
 		this.analysisFunction = analysisFunction;
 		this.compilerFiles = compilerFiles;
+		this.resolverFunctions = resolverFunctions;
 	}
 
 	@Override
@@ -63,6 +67,11 @@ public class Language extends ALanguage {
 	@Override
 	public File[] getCompilerFiles() {
 		return this.compilerFiles;
+	}
+
+	@Override
+	public String[] getResolverFunctions() {
+		return this.resolverFunctions;
 	}
 
 }

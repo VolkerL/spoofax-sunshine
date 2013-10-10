@@ -35,6 +35,8 @@ public abstract class ALanguage {
 
 	public abstract String getAnalysisFunction();
 
+	public abstract String[] getResolverFunctions();
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ALanguage) {

@@ -7,6 +7,7 @@ import static org.spoofax.terms.Term.tryGetName;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.spoofax.interpreter.core.Tools;
@@ -111,6 +112,23 @@ public class ESVReader extends Tools {
 		IStrategoAppl observer = findTerm(document, "SemanticObserver");
 		String observerFunction = termContents(termAt(observer, 0));
 		return observerFunction;
+	}
+
+	/**
+	 * TODO: test this. Should return the names of the functions that can do reference resolving. It
+	 * was added as requirement by SPT, for the reference resolving tests.
+	 * 
+	 * @param document
+	 *            the packed.esv file of the language.
+	 * @return the first sub-term of all ReferenceRule terms in the document.
+	 */
+	public static List<String> referenceResolverFunctions(IStrategoAppl document) {
+		List<IStrategoAppl> terms = collectTerms(document, "ReferenceRule");
+		List<String> result = new ArrayList<String>(terms.size());
+		for (IStrategoAppl term : terms) {
+			result.add(termContents(termAt(term, 1)));
+		}
+		return result;
 	}
 
 	public static String startSymbol(IStrategoAppl document) {
