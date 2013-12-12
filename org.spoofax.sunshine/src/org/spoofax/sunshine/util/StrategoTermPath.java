@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoConstructor;
+import org.spoofax.interpreter.terms.IStrategoInt;
 import org.spoofax.interpreter.terms.IStrategoList;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.jsglr.client.imploder.ImploderAttachment;
@@ -53,6 +54,13 @@ public class StrategoTermPath {
 		return toStrategoPath(pathInts);
 	}
 
+	/**
+	 * Converts the given list of integers into an {@link IStrategoList} of {@link IStrategoInt}s.
+	 * 
+	 * @param pathInts
+	 *            the list of integers to convert.
+	 * @return the {@link IStrategoList} of {@link IStrategoInt}s representing a path.
+	 */
 	public static IStrategoList toStrategoPath(List<Integer> pathInts) {
 		LinkedList<IStrategoTerm> results = new LinkedList<IStrategoTerm>();
 		for (int i = 0; i < pathInts.size(); i++) {
