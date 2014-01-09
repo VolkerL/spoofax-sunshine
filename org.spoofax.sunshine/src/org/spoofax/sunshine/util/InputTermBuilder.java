@@ -11,14 +11,14 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 
+import org.metaborg.sunshine.Environment;
+import org.metaborg.sunshine.services.parser.SourceAttachment;
 import org.spoofax.interpreter.terms.IStrategoList;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.IStrategoTuple;
 import org.spoofax.interpreter.terms.ITermFactory;
 import org.spoofax.jsglr.client.imploder.IToken;
 import org.spoofax.jsglr.client.imploder.TermTreeFactory;
-import org.spoofax.sunshine.Environment;
-import org.spoofax.sunshine.services.parser.SourceAttachment;
 import org.spoofax.terms.StrategoSubList;
 import org.strategoxt.HybridInterpreter;
 import org.strategoxt.lang.Context;

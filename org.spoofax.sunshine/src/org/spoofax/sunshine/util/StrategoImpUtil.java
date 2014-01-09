@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.metaborg.sunshine.Environment;
 import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoList;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.jsglr.client.imploder.TermTreeFactory;
-import org.spoofax.sunshine.Environment;
 
 /**
  * Some utility functions copied from org.strategoxt.imp.runtime package. They are here to allow us
