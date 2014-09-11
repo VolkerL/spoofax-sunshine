@@ -67,8 +67,12 @@ public class Builder implements IBuilder {
 
 	@Override
 	public IStrategoTerm invoke(IStrategoTerm input) {
-		IStrategoTerm result = StrategoCallService.INSTANCE().callStratego(getLanguage(),
-				getInvocationTarget(), input);
+		ALanguage lang = getLanguage();
+		String strat = getInvocationTarget();
+		IStrategoTerm result = StrategoCallService.INSTANCE().callStratego(
+				lang, getInvocationTarget(), input);
+		logger.info("Result of invoking strategy {} of language {} : {}",
+				strat, lang.getName(), result);
 		processResult(result);
 		return result;
 	}
@@ -78,7 +82,9 @@ public class Builder implements IBuilder {
 
 			final File resultFile = new File(Environment.INSTANCE().projectDir,
 					((IStrategoString) result.getSubterm(0)).stringValue());
-			final String resultContents = ((IStrategoString) result.getSubterm(1)).stringValue();
+			// FIXME: result is now a (String, Appl) instead of (String, String)
+			// this hack might work though
+			final String resultContents = result.getSubterm(1).toString();
 			// write the contents to the file
 			try {
 				FileUtils.writeStringToFile(resultFile, resultContents);
@@ -99,7 +105,10 @@ public class Builder implements IBuilder {
 		} else {
 			if (result == null || result.getSubtermCount() != 2
 					|| !(result.getSubterm(0) instanceof IStrategoString)
-					|| !(result.getSubterm(1) instanceof IStrategoString)) {
+					// FIXME: added the Appl check because the result has
+					// aparently changed in Spoofax
+					|| (!(result.getSubterm(1) instanceof IStrategoString) && !(result
+							.getSubterm(1) instanceof IStrategoAppl))) {
 				logger.fatal("Builder returned an unsupported result type {}", result);
 				throw new CompilerException("Unsupported return value from builder: " + result);
 			} else {
